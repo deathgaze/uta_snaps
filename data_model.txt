@@ -1,0 +1,24 @@
+login: 
+	email
+	password
+signup:
+	username
+	email
+	password
+	vPassword
+upload:
+	//just uploads an image
+
+user:
+	username
+	profilePic
+	email
+	password
+	images //references the images
+
+images:
+	title
+	description
+	img
+	cookie
+	noCookie
