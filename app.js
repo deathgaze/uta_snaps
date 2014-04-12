@@ -5,6 +5,8 @@
 
 var express = require('express');
 var routes = require('./routes');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
 var http = require('http');
 var path = require('path');
 
@@ -28,6 +30,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/login', login.index);
+app.get('/signup', signup.index);
 
 //TODO
 //	login

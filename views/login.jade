@@ -1,0 +1,16 @@
+extends layout
+
+
+block content
+	h1= title
+	form(name="login", method="POST", action="/login/submit")
+	label Email: 
+	input(type ="text", name ="email", align="right")
+	p
+	label Password: 
+	input(type="password", name = "password", align="right")
+	p
+	input(type="submit", value="Login")
+	p
+	a(href="/signup") Sign Up
+
