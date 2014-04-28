@@ -2,6 +2,9 @@ doctype
 html
   head
     link(rel='stylesheet', href='/stylesheets/style.css')
+
+    if(page=="index")
+      link(rel='stylesheet' href='/stylesheets/index.css')
   body
     ul#navbar
        li 
@@ -20,7 +23,10 @@ html
     script(src="/javascripts/snapglobal.js")
 
     if(page == "index")
+        script(src="/javascripts/isotope.pkgd.min.js")
         script(src="/javascripts/index.js")
-
+    
+    if(page=="signup")
+        script(src="/javascripts/signup.js")
     if(page == "upload")
         script(src="/javascripts/upload.js")

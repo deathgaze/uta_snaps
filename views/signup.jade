@@ -1,3 +1,21 @@
 extends layout
 
 block content
+    h1 Signup
+    #signupInputWrapper
+        label Username:
+        input(type="text" id="username")
+        br
+        label Email:
+        input(type="email" id="email")
+        br
+        label Password: 
+        input(type="password" id="password")
+        br
+        label Verify Password:
+        input(type="password" id="vpassword")
+        br
+        label Major: 
+        input(type="text" id="major")
+        br
+        input(type="button" id="signupBtn" value="Sign Up")
