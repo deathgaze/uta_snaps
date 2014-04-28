@@ -35,9 +35,16 @@ app.get('/upload', function(req,res){
     res.render("upload", {page:"upload"});
 });
 
+app.get('/signup', function(req,res){
+    res.render("signup", {page:"signup"});
+});
+
+app.get('/profile', function(req,res){
+    res.render("profile", {page: "profile"});
+});
+
 //TODO
 //	login
-//	signup
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port '+app.get('port'));
