@@ -1,0 +1,14 @@
+extend layout
+
+block content
+    h1 Upload
+    #uploadFormWrapper
+        label Title: 
+        input(type="text" id="snapTitle")
+        br
+        label Description: 
+        input(type="text" id="snapDescription")
+        br
+        input(type="file" id="snapImage")
+        br
+        input(type="button" id="uploadBtn" value="Submit")
