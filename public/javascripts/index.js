@@ -7,14 +7,28 @@ $(function(){
     var currentPage=0;
     var numSnapsPerPage=5;
     var paginationEnd=false;
+
+    var snapsGridContainer = $("#snapsGridContainer");
+    var $snapsGridContainer;
     
     initialize();
 
     function initialize(){
-        retrieveImagesFromParse();
+        $snapsGridContainer = snapsGridContainer.imagesLoaded(function(){
+                 $snapsGridContainer.isotope({
+                     itemSelector: '.snapsItem'
+                });
+        });
 
-        $("#backBtn").click(backBtnClicked);
-        $("#nextBtn").click(nextBtnClicked);
+        retrieveImagesFromParse();
+        $("#backBtn").click(function(event){
+            event.preventDefault();
+            backBtnClicked();
+        });
+        $("#nextBtn").click(function(event){
+            event.preventDefault();
+            nextBtnClicked();
+        });
     }
 
     function retrieveImagesFromParse(){
@@ -46,10 +60,10 @@ $(function(){
 
     function populatePageWithAfterImagesRetrieve(results){
         console.log("numResults: "+results.length);
-        var snapsGridContainer = $("#snapsGridContainer");
 
         //Clear the container
-        snapsGridContainer.empty();
+        //snapsGridContainer.empty();
+        $snapsGridContainer.isotope('remove', snapsGridContainer.children());
 
         for(var i = 0; i < results.length; i++){
             var snapObject = results[i];
@@ -58,38 +72,24 @@ $(function(){
             var snapItem = $("<div>").addClass("snapsItem");
             snapItem.append($("<img>").attr("src", snapPhotoUrl));
             snapsGridContainer.append(snapItem);
-            //snapsGridContainer.isotope('appended', snapItem);
+            $snapsGridContainer.isotope('appended', snapItem);
         }
-
-
-        var $snapsGridContainer = snapsGridContainer.imagesLoaded(function(){
-                console.log("all images loaded");
-                 $snapsGridContainer.isotope({
-                     itemSelector: '.snapsItem'
-                });
-        });
-    }
-
-    function initializeGrids(snapsGridContainer){
-        console.log("initializing grids");
-        var $snapsGridContainer = snapsGridContainer.imagesLoaded(function(){
-                console.log("all images loaded");
-                 $snapsGridContainer.isotope({
-                     itemSelector: '.snapsItem'
-                });
-            });
+        $snapsGridContainer.isotope("layout");
     }
 
     function backBtnClicked(){
         console.log("back btn clicked");
+        console.log("currentPage: "+currentPage);
         if (currentPage > 0){
             currentPage--;
             retrieveImagesFromParse();
         }
+        paginationEnd=false;
     }
 
-    function nextBtnClicked(){
+    function nextBtnClicked(event){
         console.log("next btn clicked");
+        console.log("currentPage: "+currentPage);
         if(!paginationEnd){
             currentPage++;
             retrieveImagesFromParse();
