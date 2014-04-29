@@ -34,7 +34,6 @@ $(function(){
 
         user.signUp(null, {
             success: function(user) {
-                // Hooray! Let them use the app now.
 
                 alert("sign up successfully, check your email");
 

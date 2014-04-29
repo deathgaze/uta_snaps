@@ -2,6 +2,13 @@ extend layout
 
 block content
     h1 Upload
+    #webCameraWrapper
+        table
+            tr
+                td
+                    #webcam(width="320" height="240")
+                td
+                    img(id="webcamImg" style="width:200px;height:153px;")
     #uploadFormWrapper
         label Title: 
         input(type="text" id="snapTitle")
@@ -10,5 +17,9 @@ block content
         input(type="text" id="snapDescription")
         br
         input(type="file" id="snapImage")
+        br
+        input(type="button" id="webcamBtn" value="Upload From Webcam")
+        input(type="button" id="takeWebcamPicBtn" value="Take Picture")
+        input(type="button" id="stopWebcamBtn" value="Stop Webcam")
         br
         input(type="button" id="uploadBtn" value="Submit")
