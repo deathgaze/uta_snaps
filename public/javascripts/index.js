@@ -5,7 +5,7 @@
 $(function(){
 
     var currentPage=0;
-    var numSnapsPerPage=5;
+    var numSnapsPerPage=10;
     var paginationEnd=false;
 
     var snapsGridContainer = $("#snapsGridContainer");
@@ -70,11 +70,24 @@ $(function(){
             var snapPhotoUrl = snapObject.get("imageFile").url();
             
             var snapItem = $("<div>").addClass("snapsItem");
-            snapItem.append($("<img>").attr("src", snapPhotoUrl));
+            var snapImg = $("<img>").attr("src", snapPhotoUrl);
+            snapItem.append(snapImg);
+            
+            //Add click event handler to snapItem
+            snapItem.click(function(event){
+                snapThumbnailClicked(snapObject,snapImg);
+            });
+
             snapsGridContainer.append(snapItem);
             $snapsGridContainer.isotope('appended', snapItem);
         }
         $snapsGridContainer.isotope("layout");
+    }
+
+    function snapThumbnailClicked(snapObject,snapImg){
+        //console.log("title: "+snapObject.get("title"));
+        console.log("title: "+snapObject.get("title"));
+        console.log(snapObject);
     }
 
     function backBtnClicked(){
@@ -97,4 +110,3 @@ $(function(){
     }
 
 });
-
