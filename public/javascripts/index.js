@@ -4,16 +4,17 @@
 
 $(function(){
 
-    var currentPage = 1;
-    var numSnapsPerPage = 5;
+    var currentPage=0;
+    var numSnapsPerPage=5;
+    var paginationEnd=false;
     
     initialize();
 
-    //Testing
-    initializeGrids();
-
     function initialize(){
         retrieveImagesFromParse();
+
+        $("#backBtn").click(backBtnClicked);
+        $("#nextBtn").click(nextBtnClicked);
     }
 
     function retrieveImagesFromParse(){
@@ -25,9 +26,16 @@ $(function(){
         query.descending("numCookies");
         query.limit(numSnapsPerPage);
 
+        if(currentPage>0)
+            query.skip(currentPage*numSnapsPerPage);
+
         query.find({
             success: function(results){
                 console.log("retrieval success");
+
+                if(results.length < numSnapsPerPage)
+                    paginationEnd=true;
+
                 populatePageWithAfterImagesRetrieve(results);
             },
             error: function(err){
@@ -38,22 +46,54 @@ $(function(){
 
     function populatePageWithAfterImagesRetrieve(results){
         console.log("numResults: "+results.length);
+        var snapsGridContainer = $("#snapsGridContainer");
+
+        //Clear the container
+        snapsGridContainer.empty();
+
         for(var i = 0; i < results.length; i++){
             var snapObject = results[i];
             var snapPhotoUrl = snapObject.get("imageFile").url();
-            console.log("snapPhotoUrl: "+snapPhotoUrl);
             
-            //TODO create grids for index page
+            var snapItem = $("<div>").addClass("snapsItem");
+            snapItem.append($("<img>").attr("src", snapPhotoUrl));
+            snapsGridContainer.append(snapItem);
+            //snapsGridContainer.isotope('appended', snapItem);
+        }
+
+
+        var $snapsGridContainer = snapsGridContainer.imagesLoaded(function(){
+                console.log("all images loaded");
+                 $snapsGridContainer.isotope({
+                     itemSelector: '.snapsItem'
+                });
+        });
+    }
+
+    function initializeGrids(snapsGridContainer){
+        console.log("initializing grids");
+        var $snapsGridContainer = snapsGridContainer.imagesLoaded(function(){
+                console.log("all images loaded");
+                 $snapsGridContainer.isotope({
+                     itemSelector: '.snapsItem'
+                });
+            });
+    }
+
+    function backBtnClicked(){
+        console.log("back btn clicked");
+        if (currentPage > 0){
+            currentPage--;
+            retrieveImagesFromParse();
         }
     }
 
-    function initializeGrids(){
-        console.log("initializing grids");
-        var $snapsGridContainer = $("#snapsGridContainer");
-        $snapsGridContainer.isotope({
-             itemSelector: '.snapsItem',
-             layoutMode: 'fitRows'
-        });
+    function nextBtnClicked(){
+        console.log("next btn clicked");
+        if(!paginationEnd){
+            currentPage++;
+            retrieveImagesFromParse();
+        }
     }
 
 });

@@ -5,3 +5,14 @@
   padding: 10px;
   background: #888;
 }
+
+.snapsItem:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.snapsItem img{
+    width: 100px;
+    height: 100px;
+}
