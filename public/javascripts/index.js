@@ -88,6 +88,8 @@ $(function(){
         //console.log("title: "+snapObject.get("title"));
         console.log("title: "+snapObject.get("title"));
         console.log(snapObject);
+        
+        //create a popup modal
     }
 
     function backBtnClicked(){
