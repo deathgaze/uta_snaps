@@ -1,21 +1,19 @@
 extends layout
 
 block content
-    h1 Signup
-    #signupInputWrapper
-        label Username:
-        input(type="text" id="username")
-        br
-        label Email:
-        input(type="email" id="email")
-        br
-        label Password: 
-        input(type="password" id="password")
-        br
-        label Verify Password:
-        input(type="password" id="vpassword")
-        br
-        label Major: 
-        input(type="text" id="major")
-        br
-        input(type="button" id="signupBtn" value="Sign Up")
+	script(src='/javascripts/jquery-2.1.0.min.js')
+	h1= title
+	form(name="registration", method="POST", action="/signup/submit")
+	label Username: 
+	input(type ="text", name="username", required)
+	p
+	label Email: 
+	input(type ="text", name="email", required)
+	p
+	label Password: 
+	input(type="password", name="password", required)
+	p
+	label Confirm Password: 
+	input(type="password", name="confirmpassword", required)
+	p
+	input(type="submit", value="Register")

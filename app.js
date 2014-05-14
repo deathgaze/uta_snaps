@@ -5,6 +5,8 @@
 
 var express = require('express');
 var routes = require('./routes');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
 var http = require('http');
 var path = require('path');
 
@@ -27,21 +29,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', function(req, res){
-    res.render("index", {page:"index"});
-});
+app.get('/', routes.index);
+app.get('/login', login.index);
+app.get('/signup', signup.index);
 
-app.get('/upload', function(req,res){
-    res.render("upload", {page:"upload"});
-});
-
-app.get('/signup', function(req,res){
-    res.render("signup", {page:"signup"});
-});
-
-app.get('/profile', function(req,res){
-    res.render("profile", {page: "profile"});
-});
 
 //TODO
 //	login
