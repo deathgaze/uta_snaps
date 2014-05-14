@@ -74,8 +74,8 @@ $(function(){
             snapItem.append(snapImg);
             
             //Add click event handler to snapItem
-            snapItem.click(function(event){
-                snapThumbnailClicked(snapObject,snapImg);
+            snapItem.click({so: snapObject, si: snapImg}, function(e){
+                snapThumbnailClicked(e.data.so,e.data.si);
             });
 
             snapsGridContainer.append(snapItem);
@@ -88,6 +88,7 @@ $(function(){
         //console.log("title: "+snapObject.get("title"));
         console.log("title: "+snapObject.get("title"));
         console.log(snapObject);
+        console.log(snapObject.get("numCookies"));
     }
 
     function backBtnClicked(){
