@@ -2,8 +2,8 @@ doctype
 html
   head
     link(rel='stylesheet', href='/stylesheets/style.css')
-
-    if(page=="index")
+    title= title
+    if(page =="index")
       link(rel='stylesheet' href='/stylesheets/index.css')
   body
     ul#navbar
@@ -11,7 +11,8 @@ html
         a(href="/") Index
        li
         a(href="/profile") Profile
-       li Login
+       li
+        a(href="/login") Login
        li 
         a(href="/signup") Signup
        li 
@@ -26,13 +27,9 @@ html
         script(src="/javascripts/imagesloaded.pkgd.min.js")
         script(src="/javascripts/isotope.pkgd.min.js")
         script(src="/javascripts/index.js")
-      
-    if(page=="signup")
+    if(page =="signup")
         script(src="/javascripts/signup.js")
     if(page == "upload")
         script(src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js")
         script(src="/javascripts/scriptcam.js")
         script(src="/javascripts/upload.js")
-       
-        
-        

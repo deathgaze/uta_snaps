@@ -1,13 +1,18 @@
 {
-  "name": "application-name",
+  "name": "uta-snaps",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
+  "repository" :
+  { "type" : "git",
+    "url" : "https://github.com/UTA-Mobi/uta_snaps.git"
+  },
   "dependencies": {
     "express": "3.4.7",
     "jade": "1.1.5",
-    "twitter-bootstrap-3.0.0":"3.0.0"
+    "parse": "^1.2.17",
+    "twitter-bootstrap-3.0.0": "3.0.0"
   }
 }
