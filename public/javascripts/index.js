@@ -88,12 +88,14 @@ $(function(){
         //console.log("title: "+snapObject.get("title"));
         console.log("title: "+snapObject.get("title"));
         console.log(snapObject);
-<<<<<<< HEAD
-        
-        //create a popup modal
-=======
         console.log(snapObject.get("numCookies"));
->>>>>>> c997c224680bc5dcb843d9b659babebb3ee13c57
+
+        console.log($);
+
+        var btn = $('<button>').attr('type','button').addClass('close').attr('data-dismiss', 'modal').text('Close');
+        var e= $('<h4>').addClass('modal-title').text('Modal Title');
+        snapsBSModal.setModalHeader(btn).appendToModalHeader(e).getModal().modal('toggle');
+
     }
 
     function backBtnClicked(){
