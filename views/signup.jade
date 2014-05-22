@@ -2,20 +2,25 @@ extends layout
 
 block content
     h1 Signup
-    #signupInputWrapper
+    form#signupInputWrapper(name="signup" action="/signup" method="post")
         label Username:
-        input(type="text" id="username")
+        input#usernameInput(type="text" placeholder="username" name="username")
+        label#usernameErrorLabel.error(hidden) Input a username
         br
         label Email:
-        input(type="email" id="email")
+        input#emailInput(type="email" placeholder="user@domain.com" name="email")
+        label#emailErrorLabel.error(hidden) Enter a valid email address
         br
         label Password: 
-        input(type="password" id="password")
+        input#passwordInput(type="password" placeholder="password" name="password")
+        label#passwordErrorLabel.error(hidden) Enter a password with at least 6 characters
         br
         label Verify Password:
-        input(type="password" id="vpassword")
+        input#verifyPasswordInput(type="password" placeholder="retype password")
+        label#verifyPasswordErrorLabel.error(hidden) Passwords must match
         br
         label Major: 
-        input(type="text" id="major")
+        input#majorInput(type="text" placeholder="major" name="major")
+        label#majorErrorLabel.error(hidden) Must input a major
         br
-        input(type="button" id="signupBtn" value="Sign Up")
+        input#submitBtn(type="submit" value="Sign Up!" disabled)
