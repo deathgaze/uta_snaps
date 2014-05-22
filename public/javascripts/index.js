@@ -86,16 +86,51 @@ $(function(){
 
     function snapThumbnailClicked(snapObject,snapImg){
         //console.log("title: "+snapObject.get("title"));
-        console.log("title: "+snapObject.get("title"));
-        console.log(snapObject);
-        console.log(snapObject.get("numCookies"));
+        //console.log("title: "+snapObject.get("title"));
+        //console.log(snapObject);
+        //console.log(snapObject.get("numCookies"));
 
-        console.log($);
+        console.log(snapObject.get('imageFile'));
+        var title = snapObject.get('title');
+        var description = snapObject.get('description');
+        var imgUrl = snapObject.get("imageFile").url();
+        var publishedBy = snapObject.get('publisherUsername');
 
-        var btn = $('<button>').attr('type','button').addClass('close').attr('data-dismiss', 'modal').text('Close');
-        var e= $('<h4>').addClass('modal-title').text('Modal Title');
-        snapsBSModal.setModalHeader(btn).appendToModalHeader(e).getModal().modal('toggle');
+        var closeBtn = $('<button>').attr('type','button').addClass('close').attr('data-dismiss', 'modal').text('Close');
+        var title= $('<h4>').addClass('modal-title').text(title);
 
+        snapsBSModal.setModalHeader(closeBtn)
+        .appendToModalHeader(title);
+
+        var img = $('<img>').attr('src', imgUrl);
+        snapsBSModal.setModalBody(img)
+
+        var paragraph = $('<p>').text(description);
+        snapsBSModal.appendToModalBody(paragraph);
+
+        var publishedBy = $('<p>').text('Published by: '+publishedBy);
+        snapsBSModal.appendToModalBody(publishedBy);
+
+        var giveCookieBtn = $('<button>').addClass('btn btn-primary').text('Give Cookie');
+        var minusCookieBtn = $('<button>').addClass('btn btn-primary').text('Minus Cookie');
+        var favorite = $('<button>').addClass('btn btn-primary').text('Favorite');
+
+        snapsBSModal.setModalFooter(giveCookieBtn).appendToModalFooter(minusCookieBtn)
+        .appendToModalFooter(favorite);       
+
+        snapsBSModal.getModal().modal('toggle');
+    }
+
+    function giveCookieBtnClicked(parseObject){
+
+    }
+
+    function minusCookieBtnClicked(parseObject){
+
+    }
+
+    function favoriteBtnClicked(){
+        
     }
 
     function backBtnClicked(){

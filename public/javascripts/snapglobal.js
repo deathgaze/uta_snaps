@@ -51,6 +51,7 @@ function SnapsBSModal(){
     function privateInitializer(){
         
         modalWrapper = $('<div>').addClass('modal').attr('role', 'dialog');
+        modalWrapper.attr('id', 'snapPopUpModal')
         modalDialog = $('<div>').addClass('modal-dialog');
         modalContent = $('<div>').addClass('modal-content');
         modalHeader = $('<div>').addClass('modal-header');
