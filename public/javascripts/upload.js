@@ -2,12 +2,11 @@
  * New node file
  */
 $(function(){
-    console.log("upload.js loaded");
     //upload global vars
-    var username = "";
     var webcamBtn = $("#webcamBtn");
     var takeWebcamPicBtn = $("#takeWebcamPicBtn");
     var stopWebcamBtn = $("#stopWebcamBtn");
+    var username = "";
     var base64ImgStr = "";
     
     initialize();
@@ -22,16 +21,22 @@ $(function(){
         stopWebcamBtn.click(stopWebcamBtnClicked);
         
         webcamBtn.click(webcamPictureBtnClicked);
-        //Get the username is the user is logged in
-        //console.log("username: "+username);
-        var currentUser = Parse.User.current();
-        if(currentUser){
+        
+        var currentUser = new Object();
+        $.get("/login.api").done(function(userInfo) {
+          currentUser = userInfo;
+        });
+
+        if(typeof currentUser == "object") {
           console.log("user is logged in");
-          username = currentUser.getUsername();
-        }else{
+          username = currentUser.username;
+        } else {
           console.log("user is not logged in");
           username = "anonymous";
         }
+        $( document ).ajaxError(function() {   
+          console.log( "Triggered ajaxError handler." );
+        });
     }
     
     function uploadBtnClicked(){
@@ -61,7 +66,7 @@ $(function(){
                 
             }, function(error){
                 if(error)
-                    alert("error: "+error.message);
+                    alert("error: " + error.message);
             });  
         }else if(base64ImgStr !== ""){
             console.log(base64ImgStr);
