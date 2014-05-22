@@ -2,6 +2,8 @@ doctype
 html
   head
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css")
+
     title= title
     if(page =="index")
       link(rel='stylesheet' href='/stylesheets/index.css')
@@ -24,6 +26,7 @@ html
     block content
     script(src="//www.parsecdn.com/js/parse-1.2.18.min.js")
     script(src="//code.jquery.com/jquery-1.11.0.min.js")
+    script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
     script(src="/javascripts/snapglobal.js")
     if(page == "profile")
         script(src="/javascripts/profile.js")
@@ -33,6 +36,7 @@ html
         script(src="/javascripts/index.js")
     if(page =="signup")
         script(src="/javascripts/signup.js")
+
     if(page == "upload")
         script(src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js")
         script(src="/javascripts/scriptcam.js")

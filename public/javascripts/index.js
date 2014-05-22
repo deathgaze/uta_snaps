@@ -89,6 +89,13 @@ $(function(){
         console.log("title: "+snapObject.get("title"));
         console.log(snapObject);
         console.log(snapObject.get("numCookies"));
+
+        console.log($);
+
+        var btn = $('<button>').attr('type','button').addClass('close').attr('data-dismiss', 'modal').text('Close');
+        var e= $('<h4>').addClass('modal-title').text('Modal Title');
+        snapsBSModal.setModalHeader(btn).appendToModalHeader(e).getModal().modal('toggle');
+
     }
 
     function backBtnClicked(){
