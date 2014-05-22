@@ -22,18 +22,16 @@ $(function(){
         
         webcamBtn.click(webcamPictureBtnClicked);
         
-        var currentUser = new Object();
         $.get("/login.api").done(function(userInfo) {
-          currentUser = userInfo;
+          if(typeof userInfo == "object" && typeof userInfo.username == "string") {
+            console.log("user is logged in");
+            username = userInfo.username;
+          } else {
+            console.log("user is not logged in");
+            username = "anonymous";
+          }
         });
 
-        if(typeof currentUser == "object") {
-          console.log("user is logged in");
-          username = currentUser.username;
-        } else {
-          console.log("user is not logged in");
-          username = "anonymous";
-        }
         $( document ).ajaxError(function() {   
           console.log( "Triggered ajaxError handler." );
         });
@@ -93,6 +91,7 @@ $(function(){
          snap.set("description", description);
          snap.set("imageFile", parseFile);
          snap.set("numCookies", 0);
+         console.log("username set to: " + username);
          snap.set("publisherUsername", username);
          snap.set("title", title);
          snap.save();
