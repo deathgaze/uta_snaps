@@ -1,54 +1,81 @@
 $(function(){
-
-    initialize();
-
-    function initialize(){
-        $("#signupBtn").click(signupBtnClick);
-    }
-
-    function signupBtnClick(){
-        console.log("signupBtn Clicked");
-
-        var username = $("#username");
-        var email = $("#email");
-        var password = $("#password");
-        var vpassword = $("#vpassword");
-        var major = $("#major");
-
-        if(username.val() == "" ||
-            email.val() =="" ||
-            password.val() == "" ||
-            password.val() != vpassword.val() ||
-            major.val() == ""){
-
-            alert("please fill out everything");
-
-            return;
+    var validatedPassword = false;
+    var validatedUsername = false;
+    var validatedEmail = false;
+    var validatedMajor = false;
+   function validateUsernameInput() {
+        if ($("#usernameInput").val().length <= 4) {
+            $("#usernameErrorLabel").show();
+            validatedUsername = false;
+        } else {
+            $("#usernameErrorLabel").hide();
+            validatedUsername = true;
         }
-
-        var user = new Parse.User();
-        user.set("username", username.val());
-        user.set("password", password.val());
-        user.set("email", email.val());
-        user.set("major", major.val());
-
-        user.signUp(null, {
-            success: function(user) {
-
-                alert("sign up successfully, check your email");
-
-                //Clear fields
-                username.val("");
-                password.val("");
-                vpassword.val("");
-                email.val("");
-                major.val("");
-            },
-            error: function(user, error) {
-                // Show the error message somewhere and let the user try again.
-                alert("Error: " + error.code + " " + error.message);
-            }
-        });
-
     }
+    $("#usernameInput").keyup(validateUsernameInput);
+    $("#usernameInput").change(validateUsernameInput);
+
+    // found here: http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+    function testEmail(email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    } 
+
+    function validateEmailInput() {
+        if (testEmail($("#emailInput").val())) {
+            $("#emailErrorLabel").hide();
+            validatedEmail = true;
+        } else {
+            $("#emailErrorLabel").show();
+            validatedEmail = false;
+        }
+    }
+    $("#emailInput").keyup(validateEmailInput);
+    $("#emailInput").change(validateEmailInput);
+
+    function validatePasswordInput() {
+        if ($("#passwordInput").val().length >= 6) {
+            $("#passwordErrorLabel").hide();
+        } else {
+            $("#passwordErrorLabel").show();
+        }
+    }
+    $("#passwordInput").keyup(validatePasswordInput);
+    $("#passwordInput").change(validatePasswordInput);
+
+    function validatePasswordVerificationInput() {
+        if ($("#verifyPasswordInput").val() == $("#passwordInput").val() &&
+            $("#passwordInput").val().length >= 6) {
+            $("#verifyPasswordErrorLabel").hide();
+            validatedPassword = true;
+        } else {
+            $("#verifyPasswordErrorLabel").show();
+            validatedPassword = false;
+        }
+    }
+    $("#verifyPasswordInput").keyup(validatePasswordVerificationInput);
+    $("#verifyPasswordInput").change(validatePasswordVerificationInput);
+
+    function validateMajorInput() {
+        if ($("#majorInput").val().length < 3) {
+            $("#majorErrorLabel").show();
+            validatedMajor = false;
+        } else {
+            $("#majorErrorLabel").hide();
+            validatedMajor = true;
+        }
+    }
+    $("#majorInput").keyup(validateMajorInput);
+    $("#majorInput").change(validateMajorInput);
+    function areInputsValid() {
+        if (validatedUsername &&
+             validatedEmail &&
+             validatedPassword &&
+             validatedMajor) {
+            $("#submitBtn").prop("disabled", false);
+        }
+    };
+    $(":input").keyup(areInputsValid);
+    $(":input").change(areInputsValid);
+
 });
