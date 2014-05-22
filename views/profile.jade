@@ -1,4 +1,41 @@
 extend layout
 
 block content
-    h1 Profile
+	h1 Profile
+	br
+	label Username:
+	label#usernameLabel= username
+	br
+	form#changeEmailForm(name="changeEmail" action="/profile/update/email" method="post")
+		label Email:
+		input#emailInput(name="email" value=email)
+		label#emailErrorLabel.error(hidden) Enter a valid email address
+		label#emailNotVerifiedLabel.error(hidden=emailVerified) Email address not yet verified!
+		br
+		input#emailSubmitBtn(type="submit" value="Update Email Address" disabled)
+	br
+	form#changePasswordForm(name="changePassword" action="/profile/update/password" method="post")
+		label Change Password:
+		input#passwordInput(type="password" name="password")
+		label#passwordErrorLabel.error(hidden) Enter a password with at least 6 characters
+		br
+		label Verify Password:
+		input#verifyPasswordInput(type="password")
+		label#verifyPasswordErrorLabel.error(hidden) Passwords must match
+		br
+		input#passwordSubmitBtn(type="submit" value="Update Password" disabled)
+	br
+	form#updateMajorForm(name="changeMajor" action="/profile/update/major" method="post")
+		label Update Major:
+		input#majorInput(type="text" name="major" value=major)
+		label#majorErrorLabel.error(hidden) Input at least three characters
+		br
+		input#majorSubmitBtn(type="submit" value="Update Major" disabled)
+	h2 Posts
+	#snapsGridContainer
+	table
+		tr
+			td
+				a(href="" id="backBtn") Back
+			td
+				a(href="" id="nextBtn") Next
