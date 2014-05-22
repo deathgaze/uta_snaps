@@ -347,4 +347,8 @@ exports.registerRoutes = function(app, Parse) {
 			}
 		});
 	});
+
+	app.get("/editor", function (req, res) {
+		verifyLoginCookieAndSendPage(req, res, "editor", "Image Editor");
+	});
 };
