@@ -1,16 +1,12 @@
 extends layout
 
-
 block content
-	h1= title
-	form(name="login", method="POST", action="/login/submit")
-	label Email: 
-	input(type ="text", name ="email", align="right")
-	p
-	label Password: 
-	input(type="password", name = "password", align="right")
-	p
-	input(type="submit", value="Login")
-	p
-	a(href="/signup") Sign Up
-
+	h1 Login
+	form#signupInputWrapper(name="login" action="/login" method="post")
+		label Username:
+		input(type="text" placeholder="username" name="username")
+		br
+		label Password:
+		input(type="password" placeholder="password" name="password")
+		br
+		input(type="submit" value="Login")

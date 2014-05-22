@@ -1,20 +1,26 @@
 extends layout
 
 block content
-	script(src='/javascripts/jquery-2.1.0.min.js')
-	h1= title
-	form(name="registration", method="POST", action="/signup/submit")
-	label Username: 
-	input(type ="text", name="username", required)
-	p
-	label Email: 
-	input(type ="text", name="email", required)
-	p
-	label Password: 
-	input(type="password", name="password", required)
-	p
-	label Confirm Password: 
-	input(type="password", name="confirmpassword", required)
-	p
-
-	input(type="submit", value="Register")
+    h1 Signup
+    form#signupInputWrapper(name="signup" action="/signup" method="post")
+        label Username:
+        input#usernameInput(type="text" placeholder="username" name="username")
+        label#usernameErrorLabel.error(hidden) Input a username
+        br
+        label Email:
+        input#emailInput(type="email" placeholder="user@domain.com" name="email")
+        label#emailErrorLabel.error(hidden) Enter a valid email address
+        br
+        label Password: 
+        input#passwordInput(type="password" placeholder="password" name="password")
+        label#passwordErrorLabel.error(hidden) Enter a password with at least 6 characters
+        br
+        label Verify Password:
+        input#verifyPasswordInput(type="password" placeholder="retype password")
+        label#verifyPasswordErrorLabel.error(hidden) Passwords must match
+        br
+        label Major: 
+        input#majorInput(type="text" placeholder="major" name="major")
+        label#majorErrorLabel.error(hidden) Must input a major
+        br
+        input#submitBtn(type="submit" value="Sign Up!" disabled)

@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+.error {
+	color: red;
+}
+
 label{
     display: inline-block;
     float: left;
@@ -16,4 +20,23 @@ label{
 }
 input {
   display: inline-block;
+}
+
+.snapsItem { 
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  padding: 10px;
+  background: #F59A59;
+}
+
+.snapsItem:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.snapsItem img{
+    width: 100px;
+    height: 100px;
 }
