@@ -9,6 +9,8 @@ html
       link(rel='stylesheet' href='/stylesheets/index.css')
     if(page == "profile")
       link(rel='stylesheet' href='/stylesheets/profile.css')
+    if(page == "editor")
+      link(rel='stylesheet' href="/stylesheets/darkroom.min.css")
   body
     ul#navbar
        li 
@@ -41,6 +43,8 @@ html
         script(src="/javascripts/isotope.pkgd.min.js")
         script(src="/javascripts/index.js")
     if(page == "editor")
+        script(src="/javascripts/fabric.js")
+        script(src="/javascripts/darkroom.min.js")
         script(src="/javascripts/editor.js")
     if(page =="signup")
         script(src="/javascripts/signup.js")
