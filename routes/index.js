@@ -68,6 +68,50 @@ exports.registerRoutes = function(app, Parse) {
 		verifyLoginCookieAndSendPage(req, res, "signup", "Signup");
 	});
 
+	//pluscookie
+	app.post('/plusorminuscookie', function(req,res){
+		//doesn't matter if the user is login
+		var objectId = req.body.objectId.toString();
+		var type = req.body.type.toString();
+
+		if(objectId && (type == 'give' || type == 'minus')){
+			var Snap = Parse.Object.extend('Snap');
+			var query = new Parse.Query(Snap);
+
+			query.get(objectId, {
+				success: function(object){
+
+
+					var updatedNumCookies = parseInt(object.get('numCookies'));
+
+					if(type=='give'){
+						updatedNumCookies = updatedNumCookies + 1;
+					}else{
+						updatedNumCookies = updatedNumCookies - 1;
+					}
+
+					object.set('numCookies', updatedNumCookies);
+
+					object.save(null,{
+						success: function(snap){
+							res.json({'success':snap.id, 'numCookies':updatedNumCookies});
+						},	
+						error: function(snap, error){
+							res.json({'error':'unable to updated snap'});
+						}
+					});
+
+				},
+				error: function(object,error){
+					res.json({'error':'unable to find snap'});
+				}
+			});
+		}else{
+			res.json({'error':'objectId or type is missing'});
+		}
+
+	});
+
 	app.get('/profile', function (req,res) {
 		var username = req.cookies.get("username");
 		if (username) {
