@@ -28,6 +28,10 @@ function SnapsBSModal(){
         return this;
     }
 
+    this.getModalBody = function(){
+        return modalBody;
+    }
+    
     this.setModalBody = function($modalBody){
         modalBody.empty().append($modalBody);
         return this;
@@ -36,6 +40,10 @@ function SnapsBSModal(){
     this.appendToModalBody = function($e){
         modalBody.append($e);
         return this;
+    }
+
+    this.getModalFooter = function(){
+        return modalFooter;
     }
 
     this.setModalFooter = function($modalFooter){
@@ -51,6 +59,7 @@ function SnapsBSModal(){
     function privateInitializer(){
         
         modalWrapper = $('<div>').addClass('modal').attr('role', 'dialog');
+        modalWrapper.attr('id', 'snapPopUpModal')
         modalDialog = $('<div>').addClass('modal-dialog');
         modalContent = $('<div>').addClass('modal-content');
         modalHeader = $('<div>').addClass('modal-header');

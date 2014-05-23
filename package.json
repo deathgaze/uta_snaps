@@ -13,6 +13,8 @@
     "express": "3.4.7",
     "jade": "1.1.5",
     "parse": "^1.2.17",
-    "twitter-bootstrap-3.0.0": "3.0.0"
+    "twitter-bootstrap-3.0.0": "3.0.0",
+    "cookies": "^0.4.1",
+    "keygrip": "^1.0.1"
   }
 }

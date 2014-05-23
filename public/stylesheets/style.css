@@ -27,7 +27,7 @@ input {
   height: 100px;
   margin: 5px;
   padding: 10px;
-  background: #F59A59;
+  /*background: #F59A59;*/
 }
 
 .snapsItem:after {
