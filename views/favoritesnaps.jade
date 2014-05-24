@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    h1 Favorite Snaps
+    form(method='post' action='/removefavoritesnap')
+        table
+            tr
+                td Unfavorite
+                td Snap
+            -for(var i = 0; i < favorites.length; i++){
+                tr
+                    td 
+                        input(type='checkbox')
+                    td
+                        a(data-json=favorites[i] class='snapAnchor')= favorites[i].title
+            - }
+        input(type='submit' value='Submit')
+ 

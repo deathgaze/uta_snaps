@@ -71,8 +71,8 @@ exports.registerRoutes = function(app, Parse) {
 	//pluscookie
 	app.post('/plusorminuscookie', function(req,res){
 		//doesn't matter if the user is login
-		var objectId = req.body.objectId.toString();
-		var type = req.body.type.toString();
+		var objectId = req.body.objectId ? req.body.objectId.toString() : "";
+		var type = req.body.type ? req.body.type.toString() : "";
 
 		if(objectId && (type == 'give' || type == 'minus')){
 			var Snap = Parse.Object.extend('Snap');
@@ -109,7 +109,98 @@ exports.registerRoutes = function(app, Parse) {
 		}else{
 			res.json({'error':'objectId or type is missing'});
 		}
+	});
+	
+	//favorite
+	app.get('/userfavoritesnaps', function(req,res){
+		
+		var username = req.cookies.get('username');
 
+		if(username){
+			//get the snaps relation from the user
+			var q = new Parse.Query(Parse.User);
+			q.equalTo("username", username);
+			q.first({
+				success: function(userObj){
+					var relation = userObj.relation('favoriteSnaps');
+					relation.query().find({
+						success: function(result) {
+							result = JSON.stringify(result);
+							result = JSON.parse(result);
+							//console.log(result)
+							res.render('favoritesnaps', {'username':username,'page':'favoritesnaps',
+								'favorites':result});
+						},
+						error: function(error){
+							res.send({'error':'error retrieving favorites!'});
+						}
+					});
+				},error: function(error){
+					res.send({'error':'error retrieving favorites!'});
+				}
+			});
+		}else{
+			res.send({'error':'you must be logged in'});
+		}
+	});
+
+	//user favorites a snap
+	app.post('/favoritesnap', function(req,res){
+		var username = req.cookies.get('username');
+		var snapId = req.body.objectId;
+
+		if(!snapId){
+			res.json({'error':'unable to favorite snap.'});
+		}
+
+		if(username){
+			var q = new Parse.Query(Parse.User);
+			q.equalTo("username", username);
+			q.first({
+				success: function (userObj) {	
+
+					if (isValidCookie(req, userObj)) {
+						 Parse.User.become(req.cookies.get("sessionToken")).then(function (user) {
+
+						 	var Snap = Parse.Object.extend('Snap');
+							var query = new Parse.Query(Snap);
+
+							query.get(snapId, {
+								success: function(snap){
+									var relation = userObj.relation('favoriteSnaps');
+
+									relation.add(snap);
+									userObj.save(null, {
+										success: function(user){
+											res.json({'success':'snap favorited'});
+										},
+										error: function(user,error){
+											console.log(error);
+											res.json({'error':'error favoriting snap!'});
+										}
+									});
+								}, error: function(snap, error){
+									console.log(error);
+									res.json({'error':'error favoriting snap!'});
+								}
+							});
+
+
+						 }, function (error) {
+						 	console.log(error);
+						 	res.json({'error':'error favoriting snap!'});
+						 });
+					}else{
+						res.json({'error':'error favoriting snap!'});
+					}				
+				},
+				error: function(error) {
+					res.json({'error':'error favoriting snap!'});
+				}
+			});	
+		}else{
+			res.json({'error':'you must be logged in to favorite a snap!'});
+		}
 	});
 
 	app.get('/profile', function (req,res) {
