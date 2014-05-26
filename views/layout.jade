@@ -11,6 +11,8 @@ html
       link(rel='stylesheet' href='/stylesheets/profile.css')
     if(page == "editor")
       link(rel='stylesheet' href="/stylesheets/darkroom.min.css")
+    if(page == "favoritesnaps")
+      link(rel='stylesheet' href='/stylesheets/favoritesnaps.css')
   body
     ul#navbar
        li 
@@ -23,6 +25,8 @@ html
         li
          a(href="/profile") #{username}'s Profile
         li
+         a(href="/userfavoritesnaps") favorite snaps
+        li
          a(href="/logout") Logout
        else
         li
@@ -34,6 +38,8 @@ html
     script(src="//code.jquery.com/jquery-1.11.0.min.js")
     script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
     script(src="/javascripts/snapglobal.js")
+    if(page == "favoritesnaps")
+        script(src="/javascripts/favoritesnaps.js")
     if(page == "profile")
         script(src="/javascripts/imagesloaded.pkgd.min.js")
         script(src="/javascripts/isotope.pkgd.min.js")      
